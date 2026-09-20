@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚀 Automated CI/CD Pipeline for a Java Web Application
+#  Automated CI/CD Pipeline for a Java Web Application
 
 ### Jenkins • Maven • Docker • Apache Tomcat • AWS EC2
 
