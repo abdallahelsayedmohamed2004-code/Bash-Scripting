@@ -17,12 +17,12 @@ An end-to-end, production-style CI/CD pipeline that takes a Java `.war` applicat
 
 ---
 
-## 📖 Table of Contents
+##  Table of Contents
 
 - [Overview](#-overview)
-- [Architecture & Pipeline Flow](#️-architecture--pipeline-flow)
+- [Architecture & Pipeline Flow](-architecture--pipeline-flow)
 - [Pipeline in Action (Screenshots)](#-pipeline-in-action)
-- [Tech Stack & Prerequisites](#️-tech-stack--prerequisites)
+- [Tech Stack & Prerequisites](-tech-stack--prerequisites)
 - [Step-by-Step Implementation](#-step-by-step-implementation)
 - [Application Access](#-application-access)
 - [Troubleshooting & Lessons Learned](#-troubleshooting--lessons-learned)
@@ -44,24 +44,10 @@ No manual builds. No manual deployments. Just `git push` → running app.
 
 ---
 
-## 🏗️ Architecture & Pipeline Flow
+##  Architecture & Pipeline Flow
 
-```mermaid
-flowchart LR
-    A[👨‍💻 Developer] -->|git push| B[📦 GitHub Repository]
-    B -->|Poll / Webhook| C[⚙️ Jenkins Server<br/>Amazon Linux 2]
-    C -->|mvn clean package| D[☕ Maven Build<br/>produces .war]
-    D -->|Publish Over SSH| E[🖥️ Docker Host<br/>Ubuntu EC2]
-    E -->|docker build| F[🐳 Custom Tomcat Image]
-    F -->|docker run -p 8086:8080| G[✅ Tomcat Container<br/>registerapp]
-    G -->|HTTP :8086| H[🌐 End User]
-
-    style A fill:#e1f5ff,stroke:#0288d1
-    style C fill:#fff3e0,stroke:#ef6c00
-    style D fill:#fce4ec,stroke:#c2185b
-    style E fill:#e8f5e9,stroke:#2e7d32
-    style G fill:#e0f2f1,stroke:#00796b
-```
+![alt text](image-1.png)
+![alt text](cicd_pipeline_architecture_flow-1.png)
 
 | Stage | What Happens |
 |:---:|---|
@@ -72,43 +58,34 @@ flowchart LR
 
 ---
 
-## 📸 Pipeline in Action
+##  Pipeline in Action
 
 > Screenshots live in `docs/screenshots/`. The captions below tell you exactly which image from your PDF maps to each file.
 
 <!-- Screenshot 1: AWS Console "Instances (2)" panel — JENKINS-SERV... and Docker-Host, both Running,
      plus the VPC / Subnets / Route Tables / Network Connections diagram beneath it. -->
-### 🖥️ Live AWS Infrastructure
-![AWS EC2 Infrastructure](docs/screenshots/01-ec2-infrastructure.png)
-*Two purpose-built EC2 instances — `JENKINS-SERVER` and `Docker-Host` — running inside a dedicated `vpc-devops-1` VPC with its own subnet, route table, and internet gateway.*
+###  Live AWS Infrastructure
+![alt text](image-2.png)
+![alt text](image-3.png)
 
-<!-- Screenshot 2: Security Groups panel showing sg-007cfeb465a97ec21 "devops-sec-group" with its
-     Details tab (Inbound/Outbound rules count) open. -->
-### 🔐 Network Security Configuration
-![Security Groups](docs/screenshots/02-security-groups.png)
-*The `devops-sec-group` security group, scoped to the pipeline's VPC, controlling inbound access to Jenkins and the app port.*
 
-<!-- Screenshot 3: Jenkins "Test-Maven-Build" job status page — green check, "Latest Test Result
-     (no failures)", Permalinks list, and the Test Result Trend graph on the right. -->
-### ✅ Successful Jenkins Build
-![Jenkins Build Success](docs/screenshots/03-jenkins-build-success.png)
-*A fully green Jenkins build — Maven compiled, tested, and packaged the artifact with zero failures.*
 
-<!-- Screenshot 4: Browser screenshot of the Apache Tomcat 11.0.26 default landing page ("If you're
-     seeing this, you've successfully installed Tomcat. Congratulations!"). -->
-### 🐱 Tomcat Container Verified
-![Tomcat Running](docs/screenshots/04-tomcat-landing.png)
-*Confirmation that the Dockerized Tomcat container booted correctly on the Docker Host before the artifact was dropped in.*
 
-<!-- Screenshot 5: Browser screenshot of the deployed app itself — "New user Register for DevOps
-     Learning" form with Name / Mobile / Email / Password fields and a Register button. -->
-### 🎉 Application Live in Production
-![Application Running](docs/screenshots/05-app-live-demo.png)
-*The end result: the Registration App, fully deployed and reachable at `http://<DOCKER-HOST-IP>:8086/registration-app`.*
 
----
+###  Network Security Configuration
+![alt text](image-5.png)
 
-## 🛠️ Tech Stack & Prerequisites
+###  Successful Jenkins Build
+![alt text](image-7.png)
+![alt text](image-8.png)
+
+
+###  Tomcat Container Verified
+![alt text](image-9.png)
+###  Application Live in Production
+![alt text](image-10.png)
+
+##  Tech Stack & Prerequisites
 
 ### Tech Stack
 
@@ -136,7 +113,7 @@ flowchart LR
 
 ---
 
-## ⚙️ Step-by-Step Implementation
+## Step-by-Step Implementation
 
 ### 1️⃣ Jenkins Server Setup (Amazon Linux 2)
 
@@ -239,7 +216,7 @@ docker run -d --name registerapp -p 8086:8080 webapp:v1
 
 ---
 
-## 🌐 Application Access
+##  Application Access
 
 Once the pipeline completes successfully, the application is live at:
 
@@ -249,7 +226,7 @@ http://<DOCKER-HOST-IP>:8086/registration-app
 
 ---
 
-## 🔧 Troubleshooting & Lessons Learned
+##  Troubleshooting & Lessons Learned
 
 Three real issues surfaced (and were resolved) while building this pipeline — documented here so nobody else has to rediscover them the hard way.
 
@@ -280,7 +257,7 @@ Three real issues surfaced (and were resolved) while building this pipeline — 
 
 ---
 
-## 🔭 Future Roadmap
+## Future Roadmap
 
 - [ ] Replace the Freestyle job with a **declarative Jenkinsfile** (Pipeline-as-Code)
 - [ ] Migrate from a single Docker container to **Kubernetes** — `regapp-deployment` (2 replicas, rolling updates) and a `LoadBalancer` `regapp-service` manifest are already scaffolded for this
@@ -291,7 +268,7 @@ Three real issues surfaced (and were resolved) while building this pipeline — 
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions, issues, and feature requests are welcome. Feel free to open an issue or submit a PR.
 
@@ -301,11 +278,11 @@ Distributed under the MIT License. See `LICENSE` for details.
 
 ## 👤 Author
 
-**Your Name**
+**Abdallah ELsayed Mohamed ELsadek**
 DevOps / Cloud Engineer
 
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/your-username)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/your-profile)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/abdallahelsayedmohamed2004-code?tab=repositories)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/abdallahel-syd2oo4/)
 
 <div align="center">
 
