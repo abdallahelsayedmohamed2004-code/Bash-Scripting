@@ -11,7 +11,7 @@ An end-to-end, production-style CI/CD pipeline that takes a Java `.war` applicat
 ![AWS](https://img.shields.io/badge/AWS-EC2-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-11-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Maven](https://img.shields.io/badge/Maven-3.9.3-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-informational?style=for-the-badge)
+
 
 </div>
 
@@ -31,7 +31,7 @@ An end-to-end, production-style CI/CD pipeline that takes a Java `.war` applicat
 
 ---
 
-## 🔎 Overview
+##  Overview
 
 This project automates the full build-and-release lifecycle of a **Java Registration Web Application**:
 
@@ -45,9 +45,9 @@ No manual builds. No manual deployments. Just `git push` → running app.
 ---
 
 ##  Architecture & Pipeline Flow
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/79a65946-68ca-43c1-a762-673b4d28583c" />
 
-![alt text](image-1.png)
-![alt text](cicd_pipeline_architecture_flow-1.png)
+
 
 | Stage | What Happens |
 |:---:|---|
