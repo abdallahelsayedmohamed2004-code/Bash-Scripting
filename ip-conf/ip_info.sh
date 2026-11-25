@@ -27,7 +27,6 @@
 #   - curl
 #   - jq (optional, for JSON parsing)
 
-
 set -euo pipefail
 
 # Default configurations
@@ -57,7 +56,7 @@ public_ip=""
 private_ip=""
 
 display_usage() {
-    cat << EOF
+    cat << EOF_USAGE
 Usage: $0 [options]
 
 This script retrieves and displays information about IP addresses and network interfaces.
@@ -84,7 +83,7 @@ Examples:
 Dependencies:
   - curl
   - jq (optional, for JSON parsing)
-EOF
+EOF_USAGE
 }
 
 display_version() {
@@ -151,7 +150,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# If no options are specified, default to displaying all information
+# If no information-selection options are specified, show all information.
 if [[ "$include_public_ip" == false && "$include_private_ip" == false && "$include_location" == false && -z "$interface" ]]; then
     include_public_ip=true
     include_private_ip=true
@@ -175,7 +174,7 @@ display_public_ip() {
 
 display_private_ip() {
     if [[ -n "$interface" ]]; then
-        # Get IP address of specified interface
+        # Get IP address of specified interface.
         if [[ "$(uname)" == "Darwin" ]]; then
             private_ip=$(ifconfig "$interface" 2>/dev/null | awk '/inet /{print $2}')
         else
@@ -191,7 +190,7 @@ display_private_ip() {
             echo "Interface '$interface' IP: $private_ip"
         fi
     else
-        # Get all private IP addresses
+        # Get all local IP addresses.
         if [[ "$(uname)" == "Darwin" ]]; then
             private_ips=$(ifconfig | awk '/inet /{print $2}' | grep -v '127.0.0.1')
         else
@@ -230,7 +229,7 @@ display_location() {
             lon=$(echo "$location_info" | jq -r '.lon')
             isp=$(echo "$location_info" | jq -r '.isp')
         else
-            # Parse using grep and sed
+            # Fallback parser; this is not portable to all grep implementations.
             status=$(echo "$location_info" | grep -Po '"status":.*?[^\\]",' | awk -F':' '{print $2}' | sed 's/[",]//g')
             if [[ "$status" != "success" ]]; then
                 message=$(echo "$location_info" | grep -Po '"message":.*?[^\\]",' | awk -F':' '{print $2}' | sed 's/[",]//g')
@@ -261,13 +260,13 @@ main() {
         exec > >(tee -a "$save_file") 2>&1
     fi
     if [[ "$output_json" == true ]]; then
-        # Collect outputs in JSON format
+        # Collect outputs in JSON format.
         output_json_data="{"
         first=true
         if [[ "$include_public_ip" == true ]]; then
             display_public_ip_json=$(display_public_ip)
-            output_json_data+="${display_public_ip_json#\{}"  # Remove starting '{'
-            output_json_data="${output_json_data%\}}"  # Remove ending '}'
+            output_json_data+="${display_public_ip_json#\{}"
+            output_json_data="${output_json_data%\}}"
             first=false
         fi
 
@@ -293,7 +292,7 @@ main() {
         output_json_data+="}"
         echo "$output_json_data" | jq . 2>/dev/null || echo "$output_json_data"
     else
-        # Plain text output
+        # Plain-text output.
         if [[ "$include_public_ip" == true ]]; then
             display_public_ip
         fi

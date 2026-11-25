@@ -415,8 +415,4 @@ Potential next steps for extending the lab:
 **Project:** Linux System Monitor & Telegram Alert Bot  
 **Purpose:** Linux administration, Bash scripting, monitoring, API integration, and automation practice.
 
-### References
 
-- [Telegram Bot API - `sendMessage`](https://core.telegram.org/bots/api#sendmessage)
-- [Telegram Bot tutorial](https://core.telegram.org/bots/tutorial)
-- [ShellCheck - Shell script analysis tool](https://www.shellcheck.net/)
