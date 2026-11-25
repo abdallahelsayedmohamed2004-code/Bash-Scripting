@@ -363,6 +363,3 @@ Useful future improvements include:
 - Supporting multiple interfaces in one invocation.
 - Adding automated tests using mocked command outputs and mocked HTTP responses.
 
-## License
-
-No license is currently specified. Add a `LICENSE` file before inviting reuse or contributions under an explicit open-source license.
