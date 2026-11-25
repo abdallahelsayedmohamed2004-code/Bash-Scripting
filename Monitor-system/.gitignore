@@ -1,0 +1,14 @@
+# Secrets and local runtime configuration
+.env
+.env.*
+!.env.example
+
+# Runtime logs
+*.log
+*.log.*
+
+# Editor / operating-system files
+.DS_Store
+*.swp
+*.swo
+*~
